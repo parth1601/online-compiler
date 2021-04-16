@@ -29,6 +29,8 @@ app.post("/api", async function (req, res) {
   var y = {};
   await exec(command, (error, stdout, stderr) => {
     x = stdout;
+	console.log("error : ",error);
+	console.log("stderr : ",stderr);
 	res.send(x);
   });
 });
