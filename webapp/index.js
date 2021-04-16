@@ -1,0 +1,37 @@
+const express = require("express");
+// const { f } = require("joi");
+const app = express();
+const port = 3000;
+var bodyParser = require("body-parser");
+var fs = require("fs");
+const fsPromises = require("fs").promises;
+const { exec } = require("child_process");
+require("dotenv").config();
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }));
+
+// parse application/json
+app.use(bodyParser.json());
+
+app.get("/", function (req, res) {
+  res.sendFile(__dirname + "/public/" + "index.html");
+});
+
+app.post("/api", async function (req, res) {
+  var input = req.body.input;
+  input = input.concat("\n");
+  fsPromises.writeFile("in.txt", input, function (err) {
+    if (err) throw err;
+    console.log("error to save " + filename);
+  });
+  var command = "a.out <in.txt";
+  var x = {};
+  var y = {};
+  await exec(command, (error, stdout, stderr) => {
+    x = stdout;
+	res.send(x);
+  });
+});
+app.listen(process.env.PORT||3000, () => {
+  console.log(`Example app listening at http://localhost:${port}`);
+});
