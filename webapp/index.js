@@ -24,7 +24,7 @@ app.post("/api", async function (req, res) {
     if (err) throw err;
     console.log("error to save " + filename);
   });
-  var command = "a.out <in.txt";
+  var command = "./a.out <in.txt";
   var x = {};
   var y = {};
   await exec(command, (error, stdout, stderr) => {
